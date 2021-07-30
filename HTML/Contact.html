@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="../CSS/style.css">
+  <link rel="stylesheet" type="text/css" href="../CSS/style1.css">
+  <title>Contact Us</title>
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="../ASSETS/Logo.png"
+  />
+
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+form {border: 3px solid #f1f1f1;}
+
+input[type=text], input[type=email], select {
+  width: 49%;
+  font-size:20px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+img.avatar {
+  width: 20%;
+  border-radius: 50%;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}
+  </style>
+  </head>
+  <body style="background:white;">
+
+<!-- Header -->
+  <header class="bg-black">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+    <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+      <a href = "../HTML/index.html#home"><img src="../ASSETS/Logo.png" width="40px" height="40px"></a>
+      <a href = "../HTML/index.html#home"><span class="text-2xl text-white px-2">Vatika</span></a>
+    </a>
+    <nav class = "md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
+      <a href = "../HTML/index.html" class="mr-5 hover:text-gray-500 text-white">Home</a>
+      <a href = "../HTML/index.html#about" class="mr-5 hover:text-gray-500 text-white">About</a>
+      <a href = "../HTML/index.html#team" class="mr-5 hover:text-gray-500 text-white">Team</a>
+      <a href = "../HTML/index.html#services" class="mr-5 hover:text-gray-500 text-white">Services</a>
+      <a href = "../HTML/Contact.html" class="mr-5 hover:text-gray-500 text-white">Contact</a>
+    </nav>
+    </div>
+  </header>
+
+<!-- Contact -->
+  <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+  <img style="margin-top:10%" class="object-cover object-center rounded" width=65% height=50% alt="hero" src="https://source.unsplash.com/620x500/?nature,water">
+  <form id="form" target="_self" onsubmit="return postToGoogle();" action="" autocomplete="off">
+  <center><input style="margin-bottom:5px; margin-top:30%; width:80%;" id="nameField" name="entry.295200127" placeholder="Enter your name" type="text" required></center>
+  <center><input style="width:80%; margin-top:50px" id="emailField" name="entry.799216379" placeholder="Enter your email" type="email" required></center> 
+  <center><input style="width:80%; margin-top:50px" id="mobField" name="entry.1361319175" placeholder="Enter your 10 Digit Phone Number" type="text" pattern="^\d{10}$" required></center>
+  <center><select style="width:80%; margin-top:50px" id="cinema" name="entry.1133416241" placeholder="Select Cinema" required></center>
+  <option value="">Enquiry</option>
+  <option value="City: Delhi, Cinema: PVR Logix City Centre IMAX, Noida">Vatika Play Station</option>
+  <option value="City:Bengaluru  Cinema:Cinepolis IMAX Forum Shantiniketan">Vatika Institute For Advanced Studies </option>
+  <option value="City:Chennai Cinema:SPI Palazo The Forum Vijaya Mall, Vadapalani">Vatika Little Champs Academy</option>
+  <option value="City:Pune Cinema:Cinepolis Westend Mall, Pune">Vatika Education Consultancy</option>
+  </select> 
+  <center><button style="width:50%; border-radius: 25px; cursor: pointer; margin-top:50px" id="send" type="submit" class="common_btn">Register Now</button></center>
+  </div>
+  </form>
+
+  <h3 id="success-msg" style="color:black; text-align: center !important; margin-top:190px !important; display:none; color:#fff"> Your Request has been posted to Google Spreadsheet</h3>
+
+  <script>
+  function postToGoogle() {
+                var field1 = $("#nameField").val();
+                var field2 = $("#emailField").val();
+                var field3 = $("#mobField").val();
+                var field4 = $("#cinema option:selected").text();
+ 				
+				if(field1 == ""){
+					alert('Please Fill Your Name');
+					document.getElementById("nameField").focus();
+					return false;
+				}
+				if(field2 == ""){
+					alert('Please Fill Your Email');
+					document.getElementById("emailField").focus();
+					return false;
+				}
+				if(field3 == "" || field3.length > 10 || field3.length < 10){
+					alert('Please Fill Your Mobile Number');
+					document.getElementById("mobField").focus();
+					return false;
+				}
+
+                $.ajax({
+                    url: "https://docs.google.com/forms/d/e/1FAIpQLSeY3yhPEXxMf5kBqFYOhiD_Xyqo6oNKxnXq-0xCzCSsEhaOlg/formResponse?",
+					data: {"entry.295200127": field1, "entry.799216379": field2, "entry.1361319175": field3, "entry.1133416241": field4},
+                    type: "POST",
+                    dataType: "xml",
+                    success: function(d)
+					{
+					},
+					error: function(x, y, z)
+						{
+
+alert("Thank You For Contacting Us! Our Team Will Contact You Soon !!");
+							
+						}
+                });
+				return false;
+            }
+  </script>
+
+<!-- Footer -->
+  <footer class="bg-black1" style="margin-top:11%">
+  <div class="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
+    <div class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
+      <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+        <img src="../ASSETS/Logo.png" width="40px" height="40px">
+        <span class="text-2xl px-2 text-white">Vatika</span>
+      </a>
+      <p class="mt-2 text-sm text-gray-500">Air plant banjo lyft occupy retro adaptogen indego</p>
+    </div>
+    <div class="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
+      <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+        <h2 class="title-font font-medium tracking-widest text-sm mb-3 text-white">CATEGORIES</h2>
+        <nav class="list-none mb-10">
+          <li>
+            <a class="text-white hover:text-gray-800">First Link</a>
+          </li>
+          <li>
+            <a class="text-white hover:text-gray-800">Second Link</a>
+          </li>
+          <li>
+            <a class="text-white hover:text-gray-800">Third Link</a>
+          </li>
+          <li>
+            <a class="text-white hover:text-gray-800">Fourth Link</a>
+          </li>
+        </nav>
+      </div>
+      <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+        <h2 class="title-font font-medium tracking-widest text-sm mb-3 text-white">CATEGORIES</h2>
+        <nav class="list-none mb-10">
+          <li>
+            <a class="text-white hover:text-gray-800">First Link</a>
+          </li>
+          <li>
+            <a class="text-white hover:text-gray-800">Second Link</a>
+          </li>
+          <li>
+            <a class="text-white hover:text-gray-800">Third Link</a>
+          </li>
+          <li>
+            <a class="text-white hover:text-gray-800">Fourth Link</a>
+          </li>
+        </nav>
+      </div>
+      <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+        <h2 class="title-font font-medium tracking-widest text-sm mb-3 text-white">CATEGORIES</h2>
+        <nav class="list-none mb-10">
+          <li>
+            <a class="text-white hover:text-gray-800">First Link</a>
+          </li>
+          <li>
+            <a class="text-white hover:text-gray-800">Second Link</a>
+          </li>
+          <li>
+            <a class="text-white hover:text-gray-800">Third Link</a>
+          </li>
+          <li>
+            <a class="text-white hover:text-gray-800">Fourth Link</a>
+          </li>
+        </nav>
+      </div>
+      <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+        <h2 class="title-font font-medium tracking-widest text-sm mb-3 text-white">CATEGORIES</h2>
+        <nav class="list-none mb-10">
+          <li>
+            <a class="text-white hover:text-gray-800">First Link</a>
+          </li>
+          <li>
+            <a class="text-white hover:text-gray-800">Second Link</a>
+          </li>
+          <li>
+            <a class="text-white hover:text-gray-800">Third Link</a>
+          </li>
+          <li>
+            <a class="text-white hover:text-gray-800">Fourth Link</a>
+          </li>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="bg-gray-100">
+    <div class="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
+      <p class="text-gray-500 text-sm text-center sm:text-left">© 2020 Vatika
+      </p>
+      <span class="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
+        <a class="text-gray-500">
+          <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+          </svg>
+        </a>
+        <a class="ml-3 text-gray-500">
+          <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+          </svg>
+        </a>
+        <a class="ml-3 text-gray-500">
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+          </svg>
+        </a>
+        <a class="ml-3 text-gray-500">
+          <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
+            <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+            <circle cx="4" cy="4" r="2" stroke="none"></circle>
+          </svg>
+        </a>
+    </div>
+  </div>
+  </footer>
+
+</body>
+</html>
